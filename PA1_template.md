@@ -88,7 +88,66 @@ steps.per.interval[which.max(steps.per.interval$steps),]
 ## 104      835 206.1698
 ```
 ## Imputing missing values
+Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data.
+
+Calculating the number of NA in the steps
+
+```r
+sum_of_na <- sum (is.na(Activity$steps))
+sum_of_na/length(Activity$steps)    # the percentage of NA to the total data
+```
+
+```
+## [1] 0.1311475
+```
+
+Filling the missing data using the mean of interval calculated earlier data 
 
 
+```r
+fill.value <- function(steps, interval) {
+    filled <- NA
+    if (!is.na(steps))
+        filled <- c(steps)
+    else
+        filled <- (steps.per.interval[steps.per.interval$interval==interval, "steps"])
+    return(filled)
+}
+filled.NA<- Activity
+filled.NA$steps <- mapply(fill.value, filled.NA$steps, filled.NA$interval)
+```
+
+Calculating the mean and median of daily data after filling the NA values
+
+
+```r
+filled.daily <- aggregate(steps ~ date, data = filled.NA, sum, na.rm = TRUE)
+filled.mean <- mean(filled.daily$steps)
+filled.median <- median(filled.daily$steps)
+
+print(paste("The mean of the original data is",round(Mean, 5), "and the mean of the data after filling the NA is",round(filled.mean, 5)))
+```
+
+```
+## [1] "The mean of the original data is 10766.18868 and the mean of the data after filling the NA is 10766.18868"
+```
+
+```r
+print(paste("The median of the original data is",Median, "and the median of the data after filling the NA is",round(filled.median,5 )))
+```
+
+```
+## [1] "The median of the original data is 10765 and the median of the data after filling the NA is 10766.18868"
+```
+
+Ploting the histogram after filling the NA values
+
+```r
+hist(filled.daily$steps,breaks = 15, main = "The Histogram of Daily Steps filled NA", xlab = "Number of steps", col = "red")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)
+
+From the result, it can be seen that the filling of the NA field is not affecting the result significantly as they don't constitute a high percentage of the whole data. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
