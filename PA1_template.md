@@ -29,6 +29,15 @@ str(Activity)
 ##  $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
+#### Ploting the Histogram of the steps
+
+
+```r
+daily <- aggregate(steps ~ date, data = Activity, sum, na.rm = TRUE)
+hist(daily$steps,breaks = 15, main = "The Histogram of Daily Steps", xlab = "Number of steps", col = "red")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)
 
 ## What is mean total number of steps taken per day?
 
