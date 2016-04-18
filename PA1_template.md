@@ -1,7 +1,8 @@
 # Reproducible Research: Peer Assessment 1
-
+It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the “quantified self” movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks.
 
 ## Loading and preprocessing the data
+Load the activity data and explore it.
 
 
 ```r
@@ -30,7 +31,7 @@ str(Activity)
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
 #### Ploting the Histogram of the steps
-
+Plotting the histogram of the daily steps using the base plot system.
 
 ```r
 daily <- aggregate(steps ~ date, data = Activity, sum, na.rm = TRUE)
@@ -40,7 +41,25 @@ hist(daily$steps,breaks = 15, main = "The Histogram of Daily Steps", xlab = "Num
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)
 
 ## What is mean total number of steps taken per day?
+The mean and the median of the daily data aggregated earlier is calculated and printed.
 
+```r
+Mean <- mean(daily$steps)
+print(paste("The mean of daily activity is", round(Mean, 3)))
+```
+
+```
+## [1] "The mean of daily activity is 10766.189"
+```
+
+```r
+Median <- median(daily$steps)
+print(paste("The median of daily activity is", Median))
+```
+
+```
+## [1] "The median of daily activity is 10765"
+```
 
 ## What is the average daily activity pattern?
 
