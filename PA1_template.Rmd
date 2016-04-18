@@ -8,10 +8,13 @@ output:
 
 ## Loading and preprocessing the data
 
-
+```{r }
+Activity <- read.csv ("~/Desktop/RepData_PeerAssessment1/Activity.csv")
+head(Activity)
+str(Activity)
+```
 
 ## What is mean total number of steps taken per day?
-
 
 
 ## What is the average daily activity pattern?
