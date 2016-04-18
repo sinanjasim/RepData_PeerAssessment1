@@ -33,7 +33,16 @@ print(paste("The median of daily activity is", Median))
 
 ## What is the average daily activity pattern?
 
+Calculating the average of daily activity pattern and plot it to understand the pattern. 
 
+```{r }
+library(ggplot2)
+steps.per.interval <- daily <- aggregate(steps ~ interval, data = Activity, mean, na.rm = TRUE)
+ggplot(data=steps.per.interval, aes(x=interval, y=steps)) +
+    geom_line() +
+    xlab("5-minute interval") +
+    ylab("average number of steps taken")
+```
 
 ## Imputing missing values
 
