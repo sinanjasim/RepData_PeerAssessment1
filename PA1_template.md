@@ -151,3 +151,27 @@ hist(filled.daily$steps,breaks = 15, main = "The Histogram of Daily Steps filled
 From the result, it can be seen that the filling of the NA field is not affecting the result significantly as they don't constitute a high percentage of the whole data. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+First of all, we need to find if the day is weekday or weekend.
+
+
+```r
+days <- function(date) {
+    day <- weekdays(date)
+    if (day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"))
+        return("weekday")
+    else if (day %in% c("Saturday", "Sunday"))
+        return("weekend")
+}
+filled.NA$date <- as.Date(filled.NA$date)
+filled.NA$day <- sapply(filled.NA$date, FUN=days)
+```
+
+Plotting a panel shwoing the difference between the weekday and weekend
+
+
+```r
+steps.per.interval.filled <- aggregate(steps ~ interval+day, data = filled.NA, sum, na.rm = TRUE)
+ggplot(steps.per.interval.filled, aes(interval, steps)) + geom_line()+ facet_grid(day~.)+ xlab("Intervals")+ ylab("Number of Steps")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)
