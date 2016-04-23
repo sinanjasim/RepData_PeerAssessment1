@@ -1,0 +1,19 @@
+
+```{r cache=TRUE}
+if(!file.exists("/Users/sinanjasim/Desktop/RepData_PeerAssessment2/repdata-data-StormData.csv.bz2")) {  
+  download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2",
+                destfile = "/Users/sinanjasim/Desktop/RepData_PeerAssessment2/repdata-data-StormData.csv.bz2",
+                method = "curl")}
+```
+
+# Loading the data in the workspace
+
+```{r cache=TRUE}
+rawdata <- read.csv(bzfile("/Users/sinanjasim/Desktop/RepData_PeerAssessment2/repdata-data-StormData.csv.bz2"), 
+                   sep=",", header = TRUE)
+```
+
+```{r}
+names(rawdata)
+```
+
